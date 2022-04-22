@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#SBATCH --nodes=1
+#SBATCH --mem=100000
+#SBATCH --time=500:00:00
+#SBATCH --job-name=sfs
+#SBATCH --partition=long
+
+module purge
+
+# module spider angsd/0.935-GCC-10.2.0 
+module load angsd/0.935-GCC-10.2.0
+path_data="/data/wildcru/kebl7066/SFS_Out/NewCL.sfs.out.saf.idx"
+REAL="/data/wildcru/kebl7066/Local_Software/realSFS"
+
+
+# calculating global estimate for SFS
+realSFS  ${path_data} -bootstrap 100 -P 10 -fold 1 -nsites 1000000 > ${path_data}CLrealsfs.em
+
+
+
+
