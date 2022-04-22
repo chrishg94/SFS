@@ -1,0 +1,26 @@
+
+#!/bin/bash
+
+#SBATCH --nodes=1
+#SBATCH --mem=64000
+#SBATCH --job-name=sfs
+#SBATCH --partition=long
+
+module purge
+# module spider angsd/0.935-GCC-10.2.0 
+module load angsd/0.935-GCC-10.2.0
+
+path_bam="/data/wildcru/kebl7066/bam.filelist"  
+path_data="/data/wildcru/kebl7066/Bam_Files/"
+path_out="/data/wildcru/kebl7066/SFS_Out/New"
+path_ref="/data/wildcru/kebl7066/Bam_Files/"
+
+
+# folded spectra because we dont have the ancestral state , need to apply - fold 1 to real SFS
+# dosaf 1 calculates site allele freq likelihood based on individual genotype likelihoods assuming H$
+angsd -bam $path_bam -doSaf 1 -out "${path_out}CL.sfs.out" -anc "${path_ref}Neofelis_neb_HiC.fasta" $
+
+
+
+
+
